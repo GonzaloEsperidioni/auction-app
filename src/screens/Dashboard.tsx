@@ -5,23 +5,27 @@ import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 import { Navigation } from '../types';
+import NavBar from '../components/NavBar';
 
 type Props = {
   navigation: Navigation;
 };
 
 const Dashboard = ({ navigation }: Props) => (
-  <Background>
-    <Logo />
-    <Header>Let’s start</Header>
-    <Paragraph>
-      Your amazing app starts here. Open you favourite code editor and start
-      editing this project.
+  <>
+    <NavBar goBack={() => navigation.goBack()} title="Subastas"></NavBar>
+    <Background>
+      <Logo />
+      <Header>Let’s start</Header>
+      <Paragraph>
+        Your amazing app starts here. Open you favourite code editor and start
+        editing this project.
     </Paragraph>
-    <Button mode="outlined" onPress={() => navigation.navigate('HomeScreen')}>
-      Logout
+      <Button mode="outlined" onPress={() => navigation.navigate('HomeScreen')}>
+        Logout
     </Button>
-  </Background>
+    </Background>
+  </>
 );
 
 export default memo(Dashboard);
