@@ -1,7 +1,8 @@
-import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { AutionProvider } from './context/AutionContext';
+import React, { useContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import AuctionContext from './context/AutionContext';
+import NavBar from './components/NavBar';
 
 import {
   HomeScreen,
@@ -11,26 +12,34 @@ import {
   Dashboard
 } from './screens';
 
-const Router = createStackNavigator(
-  {
-    HomeScreen,
-    LoginScreen,
-    RegisterScreen,
-    ForgotPasswordScreen,
-    Dashboard
-  },
-  {
-    initialRouteName: 'HomeScreen',
-    headerMode: 'none'
-  }
-);
-
-const Index = createAppContainer(Router);
+const Stack = createStackNavigator();
 
 export default () => {
+  const { authenticated } = useContext(AuctionContext);
+  // const authenticated = true;
   return (
-    <AutionProvider>
-      <Index />
-    </AutionProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {authenticated ? (
+          <>
+            <Stack.Screen
+              name="Dashboard"
+              options={{ headerShown: false }}
+              component={Dashboard}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };

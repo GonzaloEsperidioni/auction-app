@@ -15,19 +15,14 @@ const HomeScreen = ({ navigation }: Props) => (
     <Logo />
     <Header>SubastApp</Header>
 
-    <Paragraph>
-      La mejor forma de subastar online.
-    </Paragraph>
-    <Button mode="contained" onPress={() => navigation.navigate('LoginScreen')}>
+    <Paragraph>La mejor forma de subastar online.</Paragraph>
+    <Button mode="contained" onPress={() => navigation.navigate('Login')}>
       Login
     </Button>
-    <Button
-      mode="outlined"
-      onPress={() => navigation.navigate('RegisterScreen')}
-    >
+    <Button mode="outlined" onPress={() => navigation.navigate('Register')}>
       Registrarse
     </Button>
-    <Button mode="text" onPress={() => navigation.navigate('LoginScreen')}>
+    <Button mode="text" onPress={() => navigation.navigate('Login')}>
       Ingresar como invitado
     </Button>
   </Background>
