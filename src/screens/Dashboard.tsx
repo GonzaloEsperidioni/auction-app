@@ -1,12 +1,12 @@
-import React, { memo, useContext } from "react";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Paragraph from "../components/Paragraph";
-import Button from "../components/Button";
-import { Navigation } from "../types";
-import NavBar from "../components/NavBar";
-import AutionContext from "../context/AutionContext";
+import React, { memo, useContext } from 'react';
+import Background from '../components/Background';
+import Logo from '../components/Logo';
+import Header from '../components/Header';
+import Paragraph from '../components/Paragraph';
+import Button from '../components/Button';
+import { Navigation } from '../types';
+import NavBar from '../components/NavBar';
+import AutionContext from '../context/AutionContext';
 
 type Props = {
   navigation: Navigation;
@@ -29,7 +29,7 @@ const Dashboard = ({ navigation }: Props) => {
         )}
         <Button
           mode="outlined"
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate('HomeScreen')}
         >
           Logout
         </Button>

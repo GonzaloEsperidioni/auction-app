@@ -1,23 +1,23 @@
-import React, { memo, useContext, useState } from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
-import { theme } from "../core/theme";
-import { emailValidator, passwordValidator } from "../core/utils";
-import { Navigation } from "../types";
-import AutionContext from "../context/AutionContext";
+import React, { memo, useContext, useState } from 'react';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import Background from '../components/Background';
+import Logo from '../components/Logo';
+import Header from '../components/Header';
+import Button from '../components/Button';
+import TextInput from '../components/TextInput';
+import BackButton from '../components/BackButton';
+import { theme } from '../core/theme';
+import { emailValidator, passwordValidator } from '../core/utils';
+import { Navigation } from '../types';
+import AutionContext from '../context/AutionContext';
 
 type Props = {
   navigation: Navigation;
 };
 
 const LoginScreen = ({ navigation }: Props) => {
-  const [email, setEmail] = useState({ value: "", error: "" });
-  const [password, setPassword] = useState({ value: "", error: "" });
+  const [email, setEmail] = useState({ value: '', error: '' });
+  const [password, setPassword] = useState({ value: '', error: '' });
   const { setAuthenticated } = useContext(AutionContext);
 
   const _onLoginPressed = () => {
@@ -30,12 +30,12 @@ const LoginScreen = ({ navigation }: Props) => {
       return;
     }
     setAuthenticated(true);
-    navigation.navigate("Dashboard");
+    navigation.navigate('Dashboard');
   };
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate("HomeScreen")} />
+      <BackButton goBack={() => navigation.navigate('HomeScreen')} />
 
       <Logo />
 
@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }: Props) => {
         label="Email"
         returnKeyType="next"
         value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: "" })}
+        onChangeText={(text) => setEmail({ value: text, error: '' })}
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
@@ -58,7 +58,7 @@ const LoginScreen = ({ navigation }: Props) => {
         label="Contraseña"
         returnKeyType="done"
         value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: "" })}
+        onChangeText={(text) => setPassword({ value: text, error: '' })}
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
@@ -66,7 +66,7 @@ const LoginScreen = ({ navigation }: Props) => {
 
       <View style={styles.forgotPassword}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("ForgotPasswordScreen")}
+          onPress={() => navigation.navigate('ForgotPasswordScreen')}
         >
           <Text style={styles.label}>Olvidaste tu contraseña?</Text>
         </TouchableOpacity>
@@ -78,7 +78,7 @@ const LoginScreen = ({ navigation }: Props) => {
 
       <View style={styles.row}>
         <Text style={styles.label}>No tienes una cuenta? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
           <Text style={styles.link}>Registrarse</Text>
         </TouchableOpacity>
       </View>
@@ -88,21 +88,21 @@ const LoginScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
   forgotPassword: {
-    width: "100%",
-    alignItems: "flex-end",
-    marginBottom: 24,
+    width: '100%',
+    alignItems: 'flex-end',
+    marginBottom: 24
   },
   row: {
-    flexDirection: "row",
-    marginTop: 4,
+    flexDirection: 'row',
+    marginTop: 4
   },
   label: {
-    color: theme.colors.secondary,
+    color: theme.colors.secondary
   },
   link: {
-    fontWeight: "bold",
-    color: theme.colors.primary,
-  },
+    fontWeight: 'bold',
+    color: theme.colors.primary
+  }
 });
 
 export default memo(LoginScreen);

@@ -1,15 +1,15 @@
-import React from "react";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { AutionProvider } from "./context/AutionContext";
+import React from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { AutionProvider } from './context/AutionContext';
 
 import {
   HomeScreen,
   LoginScreen,
   RegisterScreen,
   ForgotPasswordScreen,
-  Dashboard,
-} from "./screens";
+  Dashboard
+} from './screens';
 
 const Router = createStackNavigator(
   {
@@ -17,11 +17,11 @@ const Router = createStackNavigator(
     LoginScreen,
     RegisterScreen,
     ForgotPasswordScreen,
-    Dashboard,
+    Dashboard
   },
   {
-    initialRouteName: "HomeScreen",
-    headerMode: "none",
+    initialRouteName: 'HomeScreen',
+    headerMode: 'none'
   }
 );
 
