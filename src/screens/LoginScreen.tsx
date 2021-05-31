@@ -5,7 +5,6 @@ import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
-import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
 import { Navigation } from '../types';
@@ -30,13 +29,11 @@ const LoginScreen = ({ navigation }: Props) => {
       return;
     }
     setAuthenticated(true);
-    navigation.navigate('Dashboard');
+    // navigation.navigate('Dashboard'); Creo que no necesitamos mas navegar, se hace solo por el context en index
   };
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate('HomeScreen')} />
-
       <Logo />
 
       <Header>Ingrese sus datos</Header>
@@ -65,9 +62,7 @@ const LoginScreen = ({ navigation }: Props) => {
       />
 
       <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ForgotPasswordScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
           <Text style={styles.label}>Olvidaste tu contraseña?</Text>
         </TouchableOpacity>
       </View>
@@ -78,7 +73,7 @@ const LoginScreen = ({ navigation }: Props) => {
 
       <View style={styles.row}>
         <Text style={styles.label}>No tienes una cuenta? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.link}>Registrarse</Text>
         </TouchableOpacity>
       </View>
