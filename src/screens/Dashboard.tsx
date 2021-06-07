@@ -7,6 +7,7 @@ import Button from '../components/Button';
 import { Navigation } from '../types';
 import NavBar from '../components/NavBar';
 import AutionContext from '../context/AutionContext';
+import Tabs from '../tabs';
 
 type Props = {
   navigation: Navigation;
