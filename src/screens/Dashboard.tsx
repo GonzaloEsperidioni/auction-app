@@ -4,6 +4,7 @@ import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
+import Container from '../components/Container';
 import { Navigation } from '../types';
 import NavBar from '../components/NavBar';
 import AutionContext from '../context/AutionContext';
@@ -13,13 +14,12 @@ type Props = {
 };
 
 const Dashboard = ({ navigation }: Props) => {
-  const { authenticated } = useContext(AutionContext);
+  const { authenticated, setAuthenticated } = useContext(AutionContext);
 
   return (
     <>
-      <NavBar goBack={() => navigation.goBack()} title="Subastas"></NavBar>
-      <Background>
-        <Logo />
+      <NavBar title="Subastas"></NavBar>
+      <Container>
         <Header>Let’s start</Header>
         {authenticated && (
           <Paragraph>
@@ -27,13 +27,10 @@ const Dashboard = ({ navigation }: Props) => {
             start editing this project.
           </Paragraph>
         )}
-        <Button
-          mode="outlined"
-          onPress={() => navigation.navigate('HomeScreen')}
-        >
+        <Button mode="outlined" onPress={() => setAuthenticated(false)}>
           Logout
         </Button>
-      </Background>
+      </Container>
     </>
   );
 };

@@ -24,7 +24,7 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
       return;
     }
 
-    navigation.navigate('LoginScreen');
+    navigation.navigate('Login');
   };
 
   return (
@@ -52,7 +52,7 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
 
       <TouchableOpacity
         style={styles.back}
-        onPress={() => navigation.navigate('LoginScreen')}
+        onPress={() => navigation.navigate('Login')}
       >
         <Text style={styles.label}>← Back to login</Text>
       </TouchableOpacity>
