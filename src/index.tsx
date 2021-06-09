@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuctionContext from './context/AutionContext';
-import NavBar from './components/NavBar';
 
 import {
   HomeScreen,
   LoginScreen,
   RegisterScreen,
-  ForgotPasswordScreen,
-  Dashboard
+  ForgotPasswordScreen
 } from './screens';
 import Tabs from './tabs';
 
