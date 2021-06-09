@@ -29,7 +29,6 @@ const LoginScreen = ({ navigation }: Props) => {
       return;
     }
     setAuthenticated(true);
-    // navigation.navigate('Dashboard'); Creo que no necesitamos mas navegar, se hace solo por el context en index
   };
 
   return (
