@@ -12,6 +12,7 @@ import {
   Dashboard
 } from './screens';
 import Tabs from './tabs';
+import ItemDetailScreen from './screens/ItemDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,10 @@ export default () => {
             name="Tabs"
             options={{ headerShown: false }}
             component={Tabs}
+          />
+          <Stack.Screen
+            name="ItemDetail"
+            component={ItemDetailScreen}
           />
         </>
       ) : (

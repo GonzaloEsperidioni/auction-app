@@ -6,10 +6,13 @@ import { Dashboard } from './screens';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ navigation }) => {
   return (
     <Tab.Navigator initialRouteName="Dashboard">
-      <Tab.Screen name="Items" component={ItemsScreen} />
+      <Tab.Screen
+        name="Items"
+        children={() => <ItemsScreen navigation={navigation} />}
+      />
       <Tab.Screen name="Dashboard" component={Dashboard} />
     </Tab.Navigator>
   );
