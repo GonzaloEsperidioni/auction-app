@@ -11,6 +11,7 @@ import {
   ForgotPasswordScreen,
   Dashboard
 } from './screens';
+import Tabs from './tabs';
 
 const Stack = createStackNavigator();
 
@@ -18,28 +19,26 @@ export default () => {
   const { authenticated } = useContext(AuctionContext);
   // const authenticated = true;
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {authenticated ? (
-          <>
-            <Stack.Screen
-              name="Dashboard"
-              options={{ headerShown: false }}
-              component={Dashboard}
-            />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen
-              name="ForgotPassword"
-              component={ForgotPasswordScreen}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      {authenticated ? (
+        <>
+          <Stack.Screen
+            name="Tabs"
+            options={{ headerShown: false }}
+            component={Tabs}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}
+          />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
