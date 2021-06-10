@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List } from 'react-native-paper';
 
-const ItemsList = ({ items }) => (
+const ItemsList = ({ items, navigation }) => (
   <>
     {items
       ? items.map((item, i) => (
@@ -14,6 +14,7 @@ const ItemsList = ({ items }) => (
               marginBottom: 1,
               borderColor: 'black'
             }}
+            onPress={() => navigation.navigate('ItemDetail')}
           />
         ))
       : null}

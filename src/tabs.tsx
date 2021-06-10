@@ -8,10 +8,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ navigation }) => {
   return (
     <Tab.Navigator initialRouteName="Dashboard">
-      <Tab.Screen name="Items" component={ItemsScreen} />
+      <Tab.Screen
+        name="Items"
+        children={() => <ItemsScreen navigation={navigation} />}
+      />
+      <Tab.Screen name="Dashboard" component={Dashboard} />
       <Tab.Screen
         name="Tickets"
         component={Dashboard}
