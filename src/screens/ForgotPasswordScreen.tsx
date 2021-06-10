@@ -31,10 +31,10 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
     <Background>
       <Logo />
 
-      <Header>Restore Password</Header>
+      <Header>Restaurar contraseña</Header>
 
       <TextInput
-        label="E-mail address"
+        label="E-mail"
         returnKeyType="done"
         value={email.value}
         onChangeText={(text) => setEmail({ value: text, error: '' })}
@@ -47,14 +47,14 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
       />
 
       <Button mode="contained" onPress={_onSendPressed} style={styles.button}>
-        Send Reset Instructions
+        Enviar instrucciones de reseteo
       </Button>
 
       <TouchableOpacity
         style={styles.back}
         onPress={() => navigation.navigate('Login')}
       >
-        <Text style={styles.label}>← Back to login</Text>
+        <Text style={styles.label}>← Volver al login</Text>
       </TouchableOpacity>
     </Background>
   );

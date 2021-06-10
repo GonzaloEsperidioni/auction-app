@@ -5,41 +5,37 @@ import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 import Container from '../components/Container';
+import CatalogItem from '../components/CatalogItem';
 import { Navigation } from '../types';
 import NavBar from '../components/NavBar';
 import AutionContext from '../context/AutionContext';
 import Tabs from '../tabs';
-import { View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { List } from 'react-native-paper';
 
 type Props = {
   navigation: Navigation;
+  route: any;
 };
 
-const Dashboard = ({ navigation }: Props) => {
+const Dashboard = ({ route, navigation }: Props) => {
   const { authenticated, setAuthenticated } = useContext(AutionContext);
+  const { id, name } = route.params;
 
+  const itemsDeCatalogo = [1, 2, 3, 4, 5];
   return (
     <>
-      <NavBar title="Subastas"></NavBar>
       <Container>
-        <Header>Bievenidos</Header>
-        {authenticated && (
-          <View>
-            <Paragraph>
-              Mantenete al tanto de las ultimas novedades y subastas.
-            </Paragraph>
-            <Paragraph>
-              Terecomendamos activar las notificaciones para siempre estar al
-              dia.
-            </Paragraph>
-          </View>
-        )}
-        <Button mode="outlined" onPress={() => setAuthenticated(false)}>
-          Cerrar sesion
-        </Button>
+        <Header>Item nro {id}</Header>
+        <Header>{name}</Header>
       </Container>
     </>
   );
 };
+const styles = StyleSheet.create({
+  main: {
+    width: '100%'
+  }
+});
 
 export default memo(Dashboard);

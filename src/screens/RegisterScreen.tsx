@@ -41,7 +41,7 @@ const RegisterScreen = ({ navigation }: Props) => {
     <Background>
       <Logo />
 
-      <Header>Create Account</Header>
+      <Header>Crear Cuenta</Header>
 
       <TextInput
         label="Name"
@@ -66,7 +66,7 @@ const RegisterScreen = ({ navigation }: Props) => {
       />
 
       <TextInput
-        label="Password"
+        label="Contraseña"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: '' })}
@@ -76,13 +76,13 @@ const RegisterScreen = ({ navigation }: Props) => {
       />
 
       <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
-        Sign Up
+        Registrarse
       </Button>
 
       <View style={styles.row}>
-        <Text style={styles.label}>Already have an account? </Text>
+        <Text style={styles.label}>Ya tenes una cuenta? </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.link}>Login</Text>
+          <Text style={styles.link}>Ingresar</Text>
         </TouchableOpacity>
       </View>
     </Background>

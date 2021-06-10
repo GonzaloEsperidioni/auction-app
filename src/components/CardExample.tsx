@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  View,
+  TouchableOpacity
+} from 'react-native';
 import {
   Avatar,
   Paragraph,
@@ -24,18 +30,12 @@ const CardExample = () => {
         style={[styles.container, { backgroundColor: background }]}
         contentContainerStyle={styles.content}
       >
-        <Card style={styles.card} mode={mode}>
-          <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-          <Card.Title title="Abandoned Ship" />
-          <Card.Content>
-            <Paragraph>
-              The Abandoned Ship is a wrecked ship located on Route 108 in
-              Hoenn, originally being a ship named the S.S. Cactus. The second
-              part of the ship can only be accessed by using Dive and contains
-              the Scanner.
-            </Paragraph>
-          </Card.Content>
-        </Card>
+        <TouchableOpacity>
+          <Card style={styles.card} mode={mode}>
+            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
+            <Card.Title title="Articulo 1" />
+          </Card>
+        </TouchableOpacity>
       </ScrollView>
     </ScreenWrapper>
   );
