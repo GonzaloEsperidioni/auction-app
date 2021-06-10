@@ -1,7 +1,7 @@
-import React, { memo, useContext } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { Navigation } from '../types';
 
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Searchbar } from 'react-native-paper';
 import ScreenWrapper from '../components/ScreenWrapper';
 import NavBar from '../components/NavBar';
@@ -10,37 +10,50 @@ type Props = {
   navigation: Navigation;
 };
 
+const items = [
+  {
+    name: 'Arte',
+    id: 1
+  },
+  {
+    name: 'Vajillas inglesas',
+    id: 2
+  },
+  {
+    name: 'Muebles premium',
+    id: 3
+  }
+];
+
 const Dashboard = ({ navigation }: Props) => {
+  const [hint, setHint] = useState('');
+  const filteredItems = items.filter((i) => !i.name.indexOf(hint));
   return (
     <>
       <NavBar title="Auction"></NavBar>
-      <Searchbar placeholder="Buscar articulo"></Searchbar>
+      <Searchbar
+        value={hint}
+        onChangeText={setHint}
+        placeholder="Buscar articulo"
+      ></Searchbar>
       <ScreenWrapper contentContainerStyle={styles.main}>
         <ScrollView style={styles.main} contentContainerStyle={styles.content}>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
-          <Card style={styles.card} mode={'outlined'}>
-            <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
-            <Card.Title title="Articulo 2" />
-          </Card>
+          {filteredItems &&
+            filteredItems.map((i) => (
+              <Card
+                onPress={() =>
+                  navigation.push('CatalogScreen', {
+                    itemId: i.id,
+                    name: i.name
+                  })
+                }
+                style={styles.card}
+                mode={'outlined'}
+              >
+                <Card.Cover source={require('../assets/wrecked-ship.jpg')} />
+                <Card.Title title={i.name} />
+              </Card>
+            ))}
         </ScrollView>
       </ScreenWrapper>
     </>
@@ -50,8 +63,7 @@ const Dashboard = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   main: {
     height: '120%',
-    flex: 1,
-    backgroundColor: 'red'
+    flex: 1
   },
   content: {
     flex: 1,

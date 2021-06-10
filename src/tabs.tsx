@@ -1,21 +1,37 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import { Image, View } from 'react-native';
 import ItemsScreen from './screens/ItemsScreen';
 import { Profile, Dashboard, MainScreen } from './screens';
-
+import CatalogScreen from './screens/CatalogScreen';
+import ItemScreen from './screens/ItemScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({ navigation }) => {
+const Stack = createStackNavigator();
+
+const Catalog = () => {
+  return (
+    <Stack.Navigator>
+      <>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="MainScreen"
+          component={MainScreen}
+        />
+        <Stack.Screen name="CatalogScreen" component={CatalogScreen} />
+        <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      </>
+    </Stack.Navigator>
+  );
+};
+const Tabs = () => {
   return (
     <Tab.Navigator initialRouteName="Dashboard">
-      <Tab.Screen
-        name="Items"
-        children={() => <ItemsScreen navigation={navigation} />}
-      />
-      <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="Items" component={ItemsScreen} />
       <Tab.Screen
         name="Tickets"
         component={Dashboard}
@@ -28,7 +44,7 @@ const Tabs = ({ navigation }) => {
       />
       <Tab.Screen
         name="Auction"
-        component={MainScreen}
+        component={Catalog}
         options={{
           tabBarLabel: 'Auction',
           tabBarIcon: ({ color }) => (

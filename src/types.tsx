@@ -1,4 +1,5 @@
 export type Navigation = {
-    navigate: (scene: string) => void;
-    goBack: () => void;
+  navigate: (scene: string, params?: any) => void;
+  goBack: () => void;
+  push: (scene: string, params?: any) => void;
 };
