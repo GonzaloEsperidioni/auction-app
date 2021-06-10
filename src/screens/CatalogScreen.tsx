@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
@@ -12,6 +12,7 @@ import AutionContext from '../context/AutionContext';
 import Tabs from '../tabs';
 import { ScrollView, StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
+import client from '../client/client';
 
 type Props = {
   navigation: Navigation;
@@ -21,21 +22,15 @@ type Props = {
 const Dashboard = ({ route, navigation }: Props) => {
   const { authenticated, setAuthenticated } = useContext(AutionContext);
   const { itemId, name } = route.params;
+  const [itemsDeCatalogo, setItemsDeCatalogo] = useState([]);
 
-  const itemsDeCatalogo = [
-    {
-      id: 1,
-      name: 'Escritorio'
-    },
-    {
-      id: 2,
-      name: 'Mesita de luz'
-    },
-    {
-      id: 3,
-      name: 'Mesa cocina'
-    }
-  ];
+  useEffect(() => {
+    const search = async () => {
+      const { data } = await client.get('/items');
+      setItemsDeCatalogo(data);
+    };
+    search();
+  }, []);
   return (
     <>
       <Container>
