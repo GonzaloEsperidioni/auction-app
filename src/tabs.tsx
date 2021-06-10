@@ -31,6 +31,7 @@ const Catalog = () => {
 const Tabs = () => {
   return (
     <Tab.Navigator initialRouteName="Dashboard">
+      <Tab.Screen name="Items" component={ItemsScreen} />
       <Tab.Screen
         name="Tickets"
         component={Dashboard}
