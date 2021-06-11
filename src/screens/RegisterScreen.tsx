@@ -34,7 +34,7 @@ const RegisterScreen = ({ navigation }: Props) => {
       return;
     }
 
-    navigation.navigate('Dashboard');
+    navigation.navigate('Home');
   };
 
   return (

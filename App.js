@@ -6,7 +6,6 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { theme } from './src/core/theme';
 import Main from './src/index';
 import { AutionProvider } from './src/context/AutionContext';
-import Tabs from './src/tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
