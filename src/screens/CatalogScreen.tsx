@@ -20,20 +20,17 @@ type Props = {
 };
 
 const Dashboard = ({ route, navigation }: Props) => {
+  const { authenticated, setAuthenticated } = useContext(AutionContext);
   const { itemId, name } = route.params;
-  const [itemsDeCatalogo, setItemsDeCatalogo] = useState([
-    { id: 1, name: 'Escritorio pc' },
-    { id: 2, name: 'Mesita de luz' },
-    { id: 3, name: 'Mesa ratona' }
-  ]);
+  const [itemsDeCatalogo, setItemsDeCatalogo] = useState([]);
 
-  //   useEffect(() => {
-  //     const search = async () => {
-  //       const { data } = await client.get('/items');
-  //       setItemsDeCatalogo(data);
-  //     };
-  //     search();
-  //   }, []);
+  useEffect(() => {
+    const search = async () => {
+      const { data } = await client.get('/items');
+      setItemsDeCatalogo(data);
+    };
+    search();
+  }, []);
   return (
     <>
       <Container>
