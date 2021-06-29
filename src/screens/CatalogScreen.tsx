@@ -13,7 +13,7 @@ import Tabs from '../tabs';
 import { ScrollView, StyleSheet } from 'react-native';
 import { List } from 'react-native-paper';
 import client from '../client/client';
-
+import ItemCard from '../components/ItemCard';
 type Props = {
   navigation: Navigation;
   route: any;
@@ -33,26 +33,25 @@ const Dashboard = ({ route, navigation }: Props) => {
   }, []);
   return (
     <>
-      <Container>
-        <Header>Catalogo nro {itemId}</Header>
-        <Header>{name}</Header>
-        <ScrollView style={styles.main}>
-          <List.Section>
-            <List.Subheader>Lista de articulos</List.Subheader>
-            {itemsDeCatalogo.map((item) => {
-              return (
-                <List.Item
-                  title={item.name}
-                  onPress={() => {
-                    navigation.push('ItemScreen', item);
-                  }}
-                  left={() => <List.Icon icon="folder" />}
-                />
-              );
-            })}
-          </List.Section>
-        </ScrollView>
-      </Container>
+      <Header>Catalogo nro {itemId}</Header>
+      <Header>{name}</Header>
+      <ScrollView style={styles.main}>
+        <ItemCard></ItemCard>
+        <List.Section>
+          <List.Subheader>Lista de articulos</List.Subheader>
+          {itemsDeCatalogo.map((item) => {
+            return (
+              <List.Item
+                title={item.name}
+                onPress={() => {
+                  navigation.push('ItemScreen', item);
+                }}
+                left={() => <List.Icon icon="folder" />}
+              />
+            );
+          })}
+        </List.Section>
+      </ScrollView>
     </>
   );
 };

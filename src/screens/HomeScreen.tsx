@@ -23,7 +23,7 @@ const HomeScreen = ({ navigation }: Props) => {
 
       <Paragraph>La mejor forma de subastar online.</Paragraph>
       <Button mode="contained" onPress={() => navigation.navigate('Login')}>
-        Login
+        Ingresar
       </Button>
       <Button mode="outlined" onPress={() => navigation.navigate('Register')}>
         Registrarse

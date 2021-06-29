@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Appbar } from 'react-native-paper';
 
-const NavBar = ({ previous, navigation, title }) => {
+const NavBar = ({ previous, navigation, title, ...props }) => {
+  console.log(props);
   return (
     <Appbar.Header>
       {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}

@@ -1,40 +1,34 @@
 import React, { memo } from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Background = ({ children }: Props) => (
-  <ImageBackground
-    source={require('../assets/background_dot.png')}
-    resizeMode="repeat"
-    style={styles.background}
-  >
+  <View style={styles.background}>
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       {children}
     </KeyboardAvoidingView>
-  </ImageBackground>
+  </View>
 );
 
 const styles = StyleSheet.create({
   background: {
+    backgroundColor: '#ffffff',
     flex: 1,
-    width: '100%',
+    width: '100%'
   },
   container: {
+    backgroundColor: '#ffffff',
     flex: 1,
     padding: 20,
     width: '100%',
     maxWidth: 340,
     alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
 
 export default memo(Background);

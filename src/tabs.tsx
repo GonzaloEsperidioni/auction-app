@@ -8,20 +8,18 @@ import { Profile, Dashboard, MainScreen } from './screens';
 import CatalogScreen from './screens/CatalogScreen';
 import ItemScreen from './screens/ItemScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import NavBar from './components/NavBar';
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 
 const Catalog = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{ header: (props) => <NavBar {...props} /> }}
+    >
       <>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="MainScreen"
-          component={MainScreen}
-        />
+        <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="CatalogScreen" component={CatalogScreen} />
         <Stack.Screen name="ItemScreen" component={ItemScreen} />
       </>
