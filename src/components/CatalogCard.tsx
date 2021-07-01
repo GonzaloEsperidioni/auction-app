@@ -9,7 +9,7 @@ import { Card, Button, Text } from 'react-native-paper';
 const CatalogCard = ({
   onPress,
   id,
-  categoria,
+  categoria = '',
   fechaInicio,
   imagen,
   items

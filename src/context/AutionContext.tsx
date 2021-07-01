@@ -4,36 +4,51 @@ const AutionContext = React.createContext(null);
 
 const CATALOGOS = [
   {
-    id: 1990,
-    categoria: 'platino',
-    fechaInicio: 'fecha',
-    imagen: 'url',
+    id: 2,
+    categoria: 'comun',
+    fechaInicio: '2021-06-01 12:00',
+    imagen:
+      'https://http2.mlstatic.com/reloj-invicta-set-2-relojes-automatico-coleccion-nuevo-t-e-r-D_NQ_NP_965267-MLM27403285938_052018-F.jpg',
     items: [
       {
-        nombre: 'guitarra Les paul',
-        imagen: 'URL',
-        descripcion: 'asdasdsadsadsa',
-        valorBase: 1000
-      },
-      {
-        nombre: 'pipi flauta',
-        imagen: 'URL',
-        descripcion: 'asdasdsadsadsa',
-        valorBase: 2000
+        nombre: 'Set Relojes',
+        imagen:
+          'https://http2.mlstatic.com/relogio-automatico-masculino-tevise-estilo-rolex-submariner-D_NQ_NP_851259-MLB31686500277_082019-F.jpg',
+        descripcion: 'Set de Relojes clasicos tiene solo unos meses de uso',
+        valorBase: 15000
       }
     ]
   },
   {
-    id: 312,
+    id: 3,
     categoria: 'oro',
-    fechaInicio: 'fecha',
-    imagen: 'url',
+    fechaInicio: '2021-06-02 18:00',
+    imagen:
+      'http://foryourcue.com/wp-content/uploads/2012/09/picasso-art-icons-collage.jpg',
     items: [
       {
-        nombre: 'ANASHEX PIANO',
-        imagen: 'URL',
-        descripcion: 'asdasdsadsadsa',
-        valorBase: 500
+        nombre: 'Set Pinturas Clasicas',
+        imagen:
+          'https://pymstatic.com/25357/conversions/picasso-mujer-default.jpg',
+        descripcion:
+          'Set de replicas de pinturas de Picasso, trabajo realizado en el año 2016',
+        valorBase: 3000
+      },
+      {
+        nombre: 'Set Pinturas Clasicas',
+        imagen:
+          'https://pymstatic.com/25357/conversions/picasso-mujer-default.jpg',
+        descripcion:
+          'Set de replicas de pinturas de Picasso, trabajo realizado en el año 2016',
+        valorBase: 2323
+      },
+      {
+        nombre: 'Set Pinturas Clasicas',
+        imagen:
+          'https://pymstatic.com/25357/conversions/picasso-mujer-default.jpg',
+        descripcion:
+          'Set de replicas de pinturas de Picasso, trabajo realizado en el año 2016',
+        valorBase: 12312
       }
     ]
   },
@@ -50,7 +65,7 @@ const CATALOGOS = [
           'https://grupomarmor.com.mx/wp-content/uploads/2019/06/taza-cafe.jpg',
         descripcion:
           'Hermosa taza de cafe, esta taza esta hecha de arcilla griega de la mejor calidad. Es un producto nuevo importado directanente desde Grecia',
-        valorBase: 1.0
+        valorBase: 1000
       }
     ]
   }

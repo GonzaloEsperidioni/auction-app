@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import CountDown from './CountDown';
 import AuctionContext from '../context/AutionContext';
 const ItemCard = ({
   onPress = () => {},

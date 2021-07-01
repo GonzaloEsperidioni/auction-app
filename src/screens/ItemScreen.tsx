@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext, useState, useEffect } from 'react';
 import Button from '../components/Button';
 import { Navigation } from '../types';
 import AutionContext from '../context/AutionContext';
@@ -11,39 +11,65 @@ import {
 } from 'react-native';
 import TextInput from '../components/TextInput';
 import { Snackbar } from 'react-native-paper';
+import Countdown from '../components/CountDown';
+import { Headline } from 'react-native-paper';
 type Props = {
   navigation: Navigation;
   route: any;
 };
-
+const RANGOS = {
+  comun: ['comun'],
+  especial: ['comun', 'especial'],
+  plata: ['comun', 'especial', 'plata'],
+  oro: ['comun', 'especial', 'plata', 'oro'],
+  platino: ['comun', 'especial', 'plata', 'oro', 'platino']
+};
 const Dashboard = ({ route, navigation }: Props) => {
-  const { isInvitado, setAuthenticated, catalogos } = useContext(AutionContext);
+  const { item, catalogo } = route.params;
+  const { nombre, descripcion, imagen, valorBase } = item;
+  const { isInvitado, setAuthenticated, catalogos, user } =
+    useContext(AutionContext);
   const [text, setText] = React.useState('');
-  const [pujaMinima, setPujaMinima] = useState(0);
-  const [valorActual, setValorActual] = useState(10);
-  const [visible, setVisible] = React.useState(false);
-
-  const calcularMinimoDePuja = (pujaActual) => {
+  const [valorActual, setValorActual] = useState(valorBase);
+  const [pujaValida, setPujaValida] = useState(false);
+  const [time, setTime] = useState(60 * 5);
+  const [autorizado, setAutorizado] = useState(
+    RANGOS[user.rol].includes(catalogo.categoria)
+  );
+  const calcularMinimoDePuja = (base) => {
     // menor al 1% valor Base en todas cat
     // oro y platino
 
-    return pujaActual * 0.01;
+    return Math.floor(base + base * 0.01);
   };
 
   const calcularMaximoDePuja = (pujaActual) => {
     // menor al 1% valor Base en todas cat
     // oro y platino
-    return pujaActual * 0.2;
+    return Math.floor(pujaActual + pujaActual * 0.2);
   };
+  const [pujaMinima, setPujaMinima] = useState(calcularMinimoDePuja(valorBase));
+  const [pujaMaxima, setPujaMaxima] = useState(
+    calcularMaximoDePuja(valorActual)
+  );
+  const [visible, setVisible] = React.useState(false);
 
+  useEffect(() => {
+    setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
+  }, [text]);
   const doPujar = () => {
-    setVisible(true);
-    setValorActual(Number(text));
-    setPujaMinima(calcularMinimoDePuja(Number(text)));
+    setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
+    if (Number(text) >= pujaMinima && Number(text) <= pujaMaxima) {
+      setVisible(true);
+      setTime(5 * 60);
+      setTimeout(() => setVisible(false), 1000);
+      setValorActual(Number(text));
+      setPujaMinima(calcularMinimoDePuja(Number(text)));
+      setPujaMaxima(calcularMaximoDePuja(Number(text)));
+      setText('');
+    }
   };
 
-  const { item } = route.params;
-  const { nombre, descripcion, imagen, valorBase } = item;
   return (
     <KeyboardAvoidingView>
       <View style={styles.container}>
@@ -60,10 +86,15 @@ const Dashboard = ({ route, navigation }: Props) => {
           <View style={styles.aside}>
             <Text style={styles.desc}>Descripcion del producto</Text>
             <Text style={styles.descText}>{descripcion}</Text>
-            {!isInvitado && (
+            {!isInvitado && autorizado && (
               <>
                 <View style={styles.info}>
-                  <Text style={styles.price}>05:00</Text>
+                  {!visible && (
+                    <Countdown
+                      timestamp={time}
+                      callback={() => console.log('GANASTE')}
+                    />
+                  )}
                   <Text style={styles.price}>$ {valorActual}</Text>
                 </View>
                 <View>
@@ -71,18 +102,30 @@ const Dashboard = ({ route, navigation }: Props) => {
                     label="Precio"
                     value={text}
                     onChangeText={(text) => setText(text)}
-                    error={text !== '' && Number(text) <= pujaMinima}
+                    error={text !== '' && Number(text) < pujaMinima}
                     errorText={
                       text !== '' &&
-                      Number(text) <= pujaMinima &&
+                      Number(text) < pujaMinima &&
                       `La puja minima tiene que ser de ${pujaMinima}`
                     }
                   />
-                  <Button onPress={doPujar} style={styles.detail}>
+                  <Button
+                    disabled={!pujaValida}
+                    onPress={doPujar}
+                    style={{
+                      ...styles.detail,
+                      backgroundColor: pujaValida ? 'blue' : 'gray'
+                    }}
+                  >
                     Pujar
                   </Button>
                 </View>
               </>
+            )}
+            {!autorizado && (
+              <Headline style={styles.cat}>
+                NO TIENES LA CATEGORIA NECESARIA PARA PARTICIPAR EN ESTA SUBASTA
+              </Headline>
             )}
           </View>
         </View>
@@ -96,6 +139,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     padding: 24
+  },
+  cat: {
+    marginTop: 20
   },
   header: {
     width: '100%',

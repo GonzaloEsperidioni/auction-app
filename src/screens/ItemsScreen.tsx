@@ -7,7 +7,19 @@ import Button from '../components/Button';
 import { useIsFocused } from '@react-navigation/core';
 
 const ItemsScreen = ({ navigation }) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    {
+      titulo: 'Item',
+      descripcion: 'desc',
+      estado: 'EN VERIFICACION'
+    },
+    {
+      titulo: 'Item',
+      descripcion: 'desc',
+      estado: 'VERIFICADO',
+      precioBase: 1550
+    }
+  ]);
   const isFocused = useIsFocused();
 
   useEffect(() => {

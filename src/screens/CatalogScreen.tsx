@@ -35,7 +35,7 @@ const Dashboard = ({ route, navigation }: Props) => {
               <ItemCard
                 {...item}
                 onPress={() => {
-                  navigation.push('ItemScreen', { item });
+                  navigation.push('ItemScreen', { item, catalogo });
                 }}
               ></ItemCard>
             ))}

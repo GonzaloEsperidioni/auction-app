@@ -2,22 +2,17 @@ import React, { useRef, useState } from 'react';
 
 import CountDownTimer from 'react-native-countdown-timer-hooks';
 
-const CountDown = ({ timestamp }) => {
+const CountDown = ({ timestamp, callback }) => {
   const refTimer = useRef();
 
   // For keeping a track on the Timer
   const [timerEnd, setTimerEnd] = useState(false);
 
-  const timerCallbackFunc = (timerFlag) => {
-    // Setting timer flag to finished
-    setTimerEnd(timerFlag);
-    console.info('La subasta esta en vivo.');
-  };
   return (
     <CountDownTimer
       ref={refTimer}
       timestamp={timestamp}
-      timerCallback={timerCallbackFunc}
+      timerCallback={callback}
       containerStyle={{
         width: 120,
         padding: 4,

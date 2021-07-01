@@ -12,11 +12,13 @@ type Props = {
 };
 
 const Dashboard = ({ navigation }: Props) => {
-  const { authenticated, setAuthenticated, catalogos } =
+  const { authenticated, setAuthenticated, catalogos, user } =
     useContext(AutionContext);
 
   const [hint, setHint] = useState('');
-  const filteredItems = catalogos;
+  const filteredItems = catalogos.filter((cat) =>
+    cat.items.some((i) => i.nombre.toLowerCase().includes(hint))
+  );
   return (
     <>
       <Searchbar
