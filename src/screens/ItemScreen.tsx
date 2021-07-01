@@ -13,6 +13,7 @@ import TextInput from '../components/TextInput';
 import { Snackbar } from 'react-native-paper';
 import Countdown from '../components/CountDown';
 import { Headline } from 'react-native-paper';
+import client from '../client/client';
 type Props = {
   navigation: Navigation;
   route: any;
@@ -57,10 +58,15 @@ const Dashboard = ({ route, navigation }: Props) => {
   const [pujas, setPujas] = useState([]);
 
   useEffect(() => {
-    fetch('pujas')
-      .then((res) => res.json())
-      .then((data) => setPujas(data));
-  }, []);
+    const search = async () => {
+      const { data } = await client.get('pujas');
+      setPujas(data);
+      setValorActual(data[data.length - 1].precio);
+      setPujaMinima(calcularMinimoDePuja(Number(data[data.length - 1].precio)));
+      setPujaMaxima(calcularMaximoDePuja(Number(data[data.length - 1].precio)));
+    };
+    search();
+  }, [visible]);
   useEffect(() => {
     setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
   }, [text]);
@@ -69,13 +75,10 @@ const Dashboard = ({ route, navigation }: Props) => {
     if (Number(text) >= pujaMinima && Number(text) <= pujaMaxima) {
       setVisible(true);
       setTime(5 * 60);
-      fetch('localhost:31231/pujas', {
-        method: 'POST',
-        body: JSON.stringify({
-          precio: text,
-          idCatalogo: catalogo.id,
-          mail: user.email
-        })
+      const response = await client.post('/pujas', {
+        precio: text,
+        idCatalogo: catalogo.id,
+        mail: user.email
       });
       setTimeout(() => setVisible(false), 1000);
       setValorActual(Number(text));
@@ -103,13 +106,18 @@ const Dashboard = ({ route, navigation }: Props) => {
             <Text style={styles.descText}>{descripcion}</Text>
             {!isInvitado && autorizado && (
               <>
-                {pujas ? (
+                {pujas && pujas[0] ? (
                   <View>
-                    <Text>Ultima oferta: {pujas[0].precio}</Text>
+                    <Text>Ultima oferta: {pujas[pujas.length - 1].precio}</Text>
+                    <Text>
+                      Mail de ofertante: {pujas[pujas.length - 1].mail}
+                    </Text>
                   </View>
                 ) : (
                   <View>
-                    <Text>No hay ofertas, se el primero en pujar!</Text>
+                    <Text style={{ marginTop: 10, fontSize: 20 }}>
+                      No hay ofertas, se el primero en pujar!
+                    </Text>
                   </View>
                 )}
                 <View style={styles.info}>

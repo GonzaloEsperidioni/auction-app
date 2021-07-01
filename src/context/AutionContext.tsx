@@ -5,8 +5,8 @@ const AutionContext = React.createContext(null);
 const CATALOGOS = [
   {
     id: 2,
-    categoria: 'comun',
-    fechaInicio: '2021-06-01 12:00',
+    categoria: 'oro',
+    fechaInicio: '2021-07-01 12:00',
     imagen:
       'https://http2.mlstatic.com/reloj-invicta-set-2-relojes-automatico-coleccion-nuevo-t-e-r-D_NQ_NP_965267-MLM27403285938_052018-F.jpg',
     items: [
@@ -21,8 +21,8 @@ const CATALOGOS = [
   },
   {
     id: 3,
-    categoria: 'oro',
-    fechaInicio: '2021-06-02 18:00',
+    categoria: 'comun',
+    fechaInicio: '2021-07-02 18:00',
     imagen:
       'http://foryourcue.com/wp-content/uploads/2012/09/picasso-art-icons-collage.jpg',
     items: [
@@ -55,7 +55,24 @@ const CATALOGOS = [
   {
     id: 12,
     categoria: 'platino',
-    fechaInicio: '2021-06-03 18:00',
+    fechaInicio: '2021-07-03 18:00',
+    imagen:
+      'https://thumbs.dreamstime.com/b/collage-de-la-bandera-del-caf%C3%A9-con-los-granos-express-cruas%C3%A1n-y-131630322.jpg',
+    items: [
+      {
+        nombre: 'Taza de Café',
+        imagen:
+          'https://grupomarmor.com.mx/wp-content/uploads/2019/06/taza-cafe.jpg',
+        descripcion:
+          'Hermosa taza de cafe, esta taza esta hecha de arcilla griega de la mejor calidad. Es un producto nuevo importado directanente desde Grecia',
+        valorBase: 1000
+      }
+    ]
+  },
+  {
+    id: 13,
+    categoria: 'platino',
+    fechaInicio: '2021-07-04 18:00',
     imagen:
       'https://thumbs.dreamstime.com/b/collage-de-la-bandera-del-caf%C3%A9-con-los-granos-express-cruas%C3%A1n-y-131630322.jpg',
     items: [
