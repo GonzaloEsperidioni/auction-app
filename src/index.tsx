@@ -7,13 +7,17 @@ import Tabs from './tabs';
 import ItemDetailScreen from './screens/ItemDetailScreen';
 import CreateItemScreen from './screens/CreateItemScreen';
 
+import NavBar from './components/NavBar';
+
 const Stack = createStackNavigator();
 
 export default () => {
   const { authenticated } = useContext(AuctionContext);
   // const authenticated = true;
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{ header: (props) => <NavBar {...props} /> }}
+    >
       {authenticated ? (
         <>
           <Stack.Screen

@@ -10,10 +10,10 @@ import { Navigation } from '../types';
 import NavBar from '../components/NavBar';
 import AutionContext from '../context/AutionContext';
 import Tabs from '../tabs';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { List } from 'react-native-paper';
 import client from '../client/client';
-
+import ItemCard from '../components/ItemCard';
 type Props = {
   navigation: Navigation;
   route: any;
@@ -24,42 +24,35 @@ const Dashboard = ({ route, navigation }: Props) => {
   const { itemId, name } = route.params;
   const [itemsDeCatalogo, setItemsDeCatalogo] = useState([]);
 
-  useEffect(() => {
-    const search = async () => {
-      const { data } = await client.get('/items');
-      setItemsDeCatalogo(data);
-    };
-    search();
-  }, []);
+  // useEffect(() => {
+  //   const search = async () => {
+  //     const { data } = await client.get('/items');
+  //     setItemsDeCatalogo(data);
+  //   };
+  //   search();
+  // }, []);
   return (
     <>
-      <Container>
-        <Header>Catalogo nro {itemId}</Header>
-        <Header>{name}</Header>
-        <ScrollView style={styles.main}>
-          <List.Section>
-            <List.Subheader>Lista de articulos</List.Subheader>
-            {itemsDeCatalogo.map((item) => {
-              return (
-                <List.Item
-                  title={item.name}
-                  onPress={() => {
-                    navigation.push('ItemScreen', item);
-                  }}
-                  left={() => <List.Icon icon="folder" />}
-                />
-              );
-            })}
-          </List.Section>
+      <Header>Catalogo nro {itemId}</Header>
+      <Header>{name}</Header>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <ItemCard
+            onPress={() => {
+              navigation.push('ItemScreen', {});
+            }}
+          ></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
         </ScrollView>
-      </Container>
+      </View>
     </>
   );
 };
-const styles = StyleSheet.create({
-  main: {
-    width: '100%'
-  }
-});
 
 export default memo(Dashboard);
