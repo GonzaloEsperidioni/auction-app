@@ -2,12 +2,7 @@ import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuctionContext from './context/AutionContext';
 
-import {
-  HomeScreen,
-  LoginScreen,
-  RegisterScreen,
-  ForgotPasswordScreen
-} from './screens';
+import { HomeScreen, RegisterScreen, ForgotPasswordScreen } from './screens';
 import Tabs from './tabs';
 import ItemDetailScreen from './screens/ItemDetailScreen';
 import CreateItemScreen from './screens/CreateItemScreen';
@@ -35,12 +30,7 @@ export default () => {
         </>
       ) : (
         <>
-          <Stack.Screen
-            name="Home"
-            options={{ title: 'Home Page' }}
-            component={HomeScreen}
-          />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen
             name="ForgotPassword"

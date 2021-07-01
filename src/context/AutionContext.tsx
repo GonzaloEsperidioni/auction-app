@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const AutionContext = React.createContext(null);
 
-const CATALOGOS = [];
+const CATALOGOS = [{}];
 export const AutionProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [catalogos, setCatalogos] = useState(CATALOGOS);
