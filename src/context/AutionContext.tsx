@@ -70,10 +70,18 @@ const CATALOGOS = [
     ]
   }
 ];
+
+const PAYMENTH_METHODS = [
+  { creditCardNumber: '4242424242424242', brand: 'visa' },
+  { creditCardNumber: '4242424242424242', brand: 'visa' },
+  { creditCardNumber: '5555555555555555', brand: 'mastercard' }
+];
+
 export const AutionProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [catalogos, setCatalogos] = useState(CATALOGOS);
   const [user, setUser] = useState({});
+  const [paymentMethods, setPaymentMethods] = useState(PAYMENTH_METHODS);
 
   const data = {
     authenticated,
@@ -81,6 +89,8 @@ export const AutionProvider = ({ children }) => {
     catalogos,
     user,
     setUser,
+    paymentMethods,
+    setPaymentMethods,
     isInvitado: user && user.rol === 'invitado'
   };
   return (
