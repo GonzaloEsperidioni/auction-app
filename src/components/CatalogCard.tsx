@@ -44,14 +44,16 @@ const CatalogCard = ({
               ))}
           </View>
           <View style={styles.footer}>
-            <Button
-              labelStyle={{ color: '#ffffff' }}
-              style={{
-                backgroundColor: vivo ? 'green' : '#f5cb5c'
-              }}
-            >
-              {vivo ? 'EN VIVO' : `${tiempoRestante}`}
-            </Button>
+            {vivo && (
+              <Button
+                labelStyle={{ color: '#ffffff' }}
+                style={{
+                  backgroundColor: vivo ? 'green' : '#f5cb5c'
+                }}
+              >
+                EN VIVO
+              </Button>
+            )}
             <Button
               icon="format-list-bulleted-square"
               mode="contained"
