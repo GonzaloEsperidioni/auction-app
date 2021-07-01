@@ -57,6 +57,14 @@ const Dashboard = ({ navigation, route }: Props) => {
         >
           Editar Perfil
         </Button>
+        <Button
+          mode="outlined"
+          onPress={() => {
+            setAuthenticated(false);
+          }}
+        >
+          Cerrar Sesion
+        </Button>
       </View>
     </>
   );
