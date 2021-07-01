@@ -67,7 +67,7 @@ const Tabs = () => {
           options={{
             tabBarLabel: 'Mis Artículos',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="receipt" color={color} size={26} />
             )
           }}
         />
@@ -78,7 +78,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Catálogo',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="gavel" color={color} size={26} />
           )
         }}
       />
@@ -89,7 +89,7 @@ const Tabs = () => {
           options={{
             tabBarLabel: 'Mi Perfil',
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="account" color={color} size={26} />
             )
           }}
         />
