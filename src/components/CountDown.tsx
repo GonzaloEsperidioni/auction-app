@@ -11,7 +11,7 @@ const CountDown = ({ timestamp }) => {
   const timerCallbackFunc = (timerFlag) => {
     // Setting timer flag to finished
     setTimerEnd(timerFlag);
-    console.warn('La subasta esta en vivo.');
+    console.info('La subasta esta en vivo.');
   };
   return (
     <CountDownTimer

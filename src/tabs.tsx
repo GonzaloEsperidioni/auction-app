@@ -28,27 +28,7 @@ const Catalog = () => {
 };
 const Tabs = () => {
   return (
-    <Tab.Navigator initialRouteName="Tickets">
-      <Tab.Screen
-        name="Items"
-        component={ItemsScreen}
-        options={{
-          tabBarLabel: 'Mis Artículos',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name="Tickets"
-        component={Dashboard}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
-        }}
-      />
+    <Tab.Navigator initialRouteName="Auction">
       <Tab.Screen
         name="Auction"
         component={Catalog}
@@ -59,6 +39,27 @@ const Tabs = () => {
           )
         }}
       />
+      <Tab.Screen
+        name="Items"
+        component={ItemsScreen}
+        options={{
+          tabBarLabel: 'Mis Artículos',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          )
+        }}
+      />
+      {/* <Tab.Screen
+        name="Tickets"
+        component={Dashboard}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          )
+        }}
+      /> */}
+
       <Tab.Screen
         name="Profile"
         component={Profile}

@@ -8,12 +8,12 @@ import {
 import { Card, Button, Text } from 'react-native-paper';
 import CountDown from '../components/CountDown';
 const CatalogCard = ({ onPress }) => {
-  const mode = 'elevated';
   // Timer References
 
   return (
-    <Card style={styles.card} mode={mode}>
+    <View style={styles.card}>
       <ImageBackground
+        resizeMode="cover"
         style={styles.image}
         source={{
           uri: 'https://i.blogs.es/d86eb3/subasta-autos-los-pinos/1366_2000.jpg'
@@ -49,7 +49,7 @@ const CatalogCard = ({ onPress }) => {
           </View>
         </View>
       </ImageBackground>
-    </Card>
+    </View>
   );
 };
 
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   card: {
     margin: 4,
     width: '100%',
-    borderRadius: 8
+    borderRadius: 8,
+    height: 200
   },
   text: {
     color: '#ffffff'
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   itemsListContainer: {
-    marginVertical: '12px'
+    marginVertical: 12
   },
   image: {
     flex: 1,
@@ -85,15 +86,15 @@ const styles = StyleSheet.create({
   overlay: {
     backgroundColor: '#000000a0',
     height: '100%',
-    padding: '8px',
+    padding: 8,
     width: '100%'
   },
   item: {
-    paddingLeft: '4px',
+    // paddingLeft: '4px',
     color: '#ffffff'
   },
   footer: {
-    paddingHorizontal: '12px',
+    paddingHorizontal: 12,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

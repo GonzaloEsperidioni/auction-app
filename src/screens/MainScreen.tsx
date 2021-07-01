@@ -25,15 +25,15 @@ const items = [
   },
   {
     name: 'Arte',
-    id: 1
+    id: 4
   },
   {
     name: 'Vajillas inglesas',
-    id: 2
+    id: 5
   },
   {
     name: 'Muebles premium',
-    id: 3
+    id: 6
   }
 ];
 
@@ -51,6 +51,7 @@ const Dashboard = ({ navigation }: Props) => {
         {filteredItems &&
           filteredItems.map((i) => (
             <CatalogCard
+              key={i.id}
               onPress={() =>
                 navigation.push('CatalogScreen', {
                   itemId: i.id,
@@ -70,13 +71,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    flex: 1,
-    width: '100%',
+    // flex: 1,
+    // width: '100%',
+    flexGrow: 1,
     // height: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 12,
-    paddingBottom: 0
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    padding: 12
+    // paddingBottom: 0
   }
 });
 

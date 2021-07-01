@@ -33,6 +33,9 @@ const Dashboard = ({ navigation }: Props) => {
             </View>
           </View>
         </KeyboardAvoidingView>
+        <Button mode="outlined" onPress={() => setAuthenticated(false)}>
+          Cerrar sesion
+        </Button>
       </View>
     </>
   );
