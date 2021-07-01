@@ -53,15 +53,29 @@ const Dashboard = ({ route, navigation }: Props) => {
     calcularMaximoDePuja(valorActual)
   );
   const [visible, setVisible] = React.useState(false);
+  const [pujas, setPujas] = useState([]);
 
+  useEffect(() => {
+    fetch('pujas')
+      .then((res) => res.json())
+      .then((data) => setPujas(data));
+  }, []);
   useEffect(() => {
     setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
   }, [text]);
-  const doPujar = () => {
+  const doPujar = async () => {
     setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
     if (Number(text) >= pujaMinima && Number(text) <= pujaMaxima) {
       setVisible(true);
       setTime(5 * 60);
+      fetch('localhost:31231/pujas', {
+        method: 'POST',
+        body: JSON.stringify({
+          precio: text,
+          idCatalogo: catalogo.id,
+          mail: user.email
+        })
+      });
       setTimeout(() => setVisible(false), 1000);
       setValorActual(Number(text));
       setPujaMinima(calcularMinimoDePuja(Number(text)));
@@ -88,6 +102,15 @@ const Dashboard = ({ route, navigation }: Props) => {
             <Text style={styles.descText}>{descripcion}</Text>
             {!isInvitado && autorizado && (
               <>
+                {pujas ? (
+                  <View>
+                    <Text>Ultima oferta: {pujas[0].precio}</Text>
+                  </View>
+                ) : (
+                  <View>
+                    <Text>No hay ofertas, se el primero en pujar!</Text>
+                  </View>
+                )}
                 <View style={styles.info}>
                   {!visible && (
                     <Countdown
