@@ -4,7 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Image, View } from 'react-native';
 import ItemsScreen from './screens/ItemsScreen';
-import { Profile, Dashboard, MainScreen } from './screens';
+import {
+  ProfileScreen,
+  Dashboard,
+  MainScreen,
+  PaymentMethodsScreen,
+  CreatePaymentMethod,
+  UpdateProfile
+} from './screens';
 import CatalogScreen from './screens/CatalogScreen';
 import ItemScreen from './screens/ItemScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,6 +29,27 @@ const Catalog = () => {
         <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="CatalogScreen" component={CatalogScreen} />
         <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      </>
+    </Stack.Navigator>
+  );
+};
+
+const Profile = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{ header: (props) => <NavBar {...props} /> }}
+    >
+      <>
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen
+          name="PaymentMethodsScreen"
+          component={PaymentMethodsScreen}
+        />
+        <Stack.Screen
+          name="CreatePaymentMethod"
+          component={CreatePaymentMethod}
+        />
+        <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
       </>
     </Stack.Navigator>
   );
