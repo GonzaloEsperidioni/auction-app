@@ -10,64 +10,84 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import TextInput from '../components/TextInput';
-
+import { Snackbar } from 'react-native-paper';
 type Props = {
   navigation: Navigation;
   route: any;
 };
 
 const Dashboard = ({ route, navigation }: Props) => {
-  const { isInvitado, setAuthenticated } = useContext(AutionContext);
+  const { isInvitado, setAuthenticated, catalogos } = useContext(AutionContext);
   const [text, setText] = React.useState('');
-  const [pujaMinima, setPujaMinima] = useState(100);
-  const { id, name } = route.params;
+  const [pujaMinima, setPujaMinima] = useState(0);
+  const [valorActual, setValorActual] = useState(10);
+  const [visible, setVisible] = React.useState(false);
 
-  const itemsDeCatalogo = [1, 2, 3, 4, 5];
+  const calcularMinimoDePuja = (pujaActual) => {
+    // menor al 1% valor Base en todas cat
+    // oro y platino
+
+    return pujaActual * 0.01;
+  };
+
+  const calcularMaximoDePuja = (pujaActual) => {
+    // menor al 1% valor Base en todas cat
+    // oro y platino
+    return pujaActual * 0.2;
+  };
+
+  const doPujar = () => {
+    setVisible(true);
+    setValorActual(Number(text));
+    setPujaMinima(calcularMinimoDePuja(Number(text)));
+  };
+
+  const { item } = route.params;
+  const { nombre, descripcion, imagen, valorBase } = item;
   return (
     <KeyboardAvoidingView>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Guitarra Les Paul</Text>
+          <Text style={styles.headerText}>{nombre}</Text>
         </View>
         <View style={styles.content}>
           <Image
             style={styles.image}
             source={{
-              uri: 'https://www.mrcdinstrumentos.com.mx/shared/productos/11996/LPC-EBCH1.jpg'
+              uri: imagen
             }}
           ></Image>
           <View style={styles.aside}>
             <Text style={styles.desc}>Descripcion del producto</Text>
-            <Text style={styles.descText}>
-              Guitarra bla bla Lorem ipsum dolor sit amet consectetur,
-              adipisicing elit. Ad distinctio qui corrupti deserunt minus, nemo
-              recusandae vero. Eos quos reprehenderit modi, in dolores quasi
-              sunt totam molestias, id odit tempore!
-            </Text>
+            <Text style={styles.descText}>{descripcion}</Text>
             {!isInvitado && (
               <>
                 <View style={styles.info}>
-                  <Text style={styles.price}>12:23:02</Text>
-                  <Text style={styles.price}>$5454</Text>
+                  <Text style={styles.price}>05:00</Text>
+                  <Text style={styles.price}>$ {valorActual}</Text>
                 </View>
                 <View>
                   <TextInput
                     label="Precio"
                     value={text}
                     onChangeText={(text) => setText(text)}
-                    error={Number(text) <= pujaMinima}
+                    error={text !== '' && Number(text) <= pujaMinima}
                     errorText={
+                      text !== '' &&
                       Number(text) <= pujaMinima &&
                       `La puja minima tiene que ser de ${pujaMinima}`
                     }
                   />
-                  <Button style={styles.detail}>Pujar</Button>
+                  <Button onPress={doPujar} style={styles.detail}>
+                    Pujar
+                  </Button>
                 </View>
               </>
             )}
           </View>
         </View>
       </View>
+      <Snackbar visible={visible}>Su puja ingreso correctamente!.</Snackbar>
     </KeyboardAvoidingView>
   );
 };

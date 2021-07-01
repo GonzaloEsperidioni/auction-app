@@ -6,38 +6,52 @@ import {
   ImageBackground
 } from 'react-native';
 import { Card, Button, Text } from 'react-native-paper';
-import CountDown from '../components/CountDown';
-const CatalogCard = ({ onPress }) => {
+const CatalogCard = ({
+  onPress,
+  id,
+  categoria,
+  fechaInicio,
+  imagen,
+  items
+}) => {
   // Timer References
-
+  const vivo = true;
+  const tiempoRestante = '01:02';
   return (
     <View style={styles.card}>
       <ImageBackground
         resizeMode="cover"
         style={styles.image}
         source={{
-          uri: 'https://i.blogs.es/d86eb3/subasta-autos-los-pinos/1366_2000.jpg'
+          uri: imagen
         }}
       >
         <View style={styles.overlay}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Subasta #1990</Text>
-            <Text style={styles.headerText}>Categoria: Platino</Text>
+            <Text style={styles.headerText}>Subasta #{id}</Text>
+            <Text style={styles.headerText}>{categoria.toUpperCase()}</Text>
           </View>
           <View>
-            <Text style={styles.text}>
-              Fecha de inicio: 05/07/2021 12:30 PM
-            </Text>
+            <Text style={styles.text}>Fecha de inicio: {fechaInicio}</Text>
           </View>
           <View style={styles.itemsListContainer}>
             <Text style={styles.text}>Listado de items:</Text>
-            <Text style={styles.item}>{'\u2022'} Guitarra Fender</Text>
-            <Text style={styles.item}>{'\u2022'} Pedal Wah Wah</Text>
+            {items &&
+              items.map((item) => (
+                <Text style={styles.item}>
+                  {'\u2022'} {item.nombre}
+                </Text>
+              ))}
           </View>
           <View style={styles.footer}>
-            <View>
-              <CountDown timestamp={120}></CountDown>
-            </View>
+            <Button
+              labelStyle={{ color: '#ffffff' }}
+              style={{
+                backgroundColor: vivo ? 'green' : '#f5cb5c'
+              }}
+            >
+              {vivo ? 'EN VIVO' : `${tiempoRestante}`}
+            </Button>
             <Button
               icon="format-list-bulleted-square"
               mode="contained"

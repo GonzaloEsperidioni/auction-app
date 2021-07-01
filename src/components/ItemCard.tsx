@@ -3,25 +3,33 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import CountDown from './CountDown';
 import AuctionContext from '../context/AutionContext';
-const ItemCard = ({ onPress = () => {} }) => {
+const ItemCard = ({
+  onPress = () => {},
+  nombre,
+  imagen,
+  descripcion,
+  valorBase
+}) => {
   const { user, isInvitado } = useContext(AuctionContext);
 
   const mode = 'elevated';
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Guitarra Les Paul</Text>
+        <Text style={styles.headerText}>{nombre}</Text>
       </View>
       <View style={styles.container}>
         <Image
           style={styles.image}
           source={{
-            uri: 'https://www.mrcdinstrumentos.com.mx/shared/productos/11996/LPC-EBCH1.jpg'
+            uri: imagen
           }}
         ></Image>
         <View style={styles.aside}>
-          <Text style={styles.desc}>Descripcion del producto</Text>
-          {!isInvitado && <Text style={styles.price}>$5454</Text>}
+          <Text style={styles.desc}>{descripcion}</Text>
+          {!isInvitado && (
+            <Text style={styles.price}>Precio base ${valorBase}</Text>
+          )}
           <Button onPress={onPress} style={styles.detail}>
             Detalle
           </Button>
@@ -74,9 +82,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between'
   },
   price: {
-    width: 150,
     fontSize: 24,
-    backgroundColor: '#F4e76F',
     color: '#000000',
     padding: 8,
     borderRadius: 8,

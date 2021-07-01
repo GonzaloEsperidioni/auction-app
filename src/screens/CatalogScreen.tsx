@@ -20,34 +20,25 @@ type Props = {
 };
 
 const Dashboard = ({ route, navigation }: Props) => {
-  const { authenticated, setAuthenticated } = useContext(AutionContext);
-  const { itemId, name } = route.params;
+  const { authenticated, setAuthenticated, catalogos } =
+    useContext(AutionContext);
+  const { catalogId, name } = route.params;
   const [itemsDeCatalogo, setItemsDeCatalogo] = useState([]);
-
-  // useEffect(() => {
-  //   const search = async () => {
-  //     const { data } = await client.get('/items');
-  //     setItemsDeCatalogo(data);
-  //   };
-  //   search();
-  // }, []);
+  const catalogo = catalogos.find((ca) => ca.id === catalogId);
   return (
     <>
-      <Header>Catalogo nro {itemId}</Header>
+      <Header>Catalogo nro {catalogo.id}</Header>
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <ItemCard
-            onPress={() => {
-              navigation.push('ItemScreen', {});
-            }}
-          ></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
+          {catalogo &&
+            catalogo.items.map((item) => (
+              <ItemCard
+                {...item}
+                onPress={() => {
+                  navigation.push('ItemScreen', { item });
+                }}
+              ></ItemCard>
+            ))}
         </ScrollView>
       </View>
     </>
