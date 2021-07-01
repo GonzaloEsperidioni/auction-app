@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -16,6 +16,7 @@ import CatalogScreen from './screens/CatalogScreen';
 import ItemScreen from './screens/ItemScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavBar from './components/NavBar';
+import AuctionContext from './context/AutionContext';
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
@@ -55,8 +56,22 @@ const Profile = () => {
   );
 };
 const Tabs = () => {
+  const { user } = useContext(AuctionContext);
+
   return (
     <Tab.Navigator initialRouteName="Auction">
+      {user && user.rol !== 'invitado' && (
+        <Tab.Screen
+          name="Items"
+          component={ItemsScreen}
+          options={{
+            tabBarLabel: 'Mis Artículos',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            )
+          }}
+        />
+      )}
       <Tab.Screen
         name="Auction"
         component={Catalog}
@@ -67,37 +82,18 @@ const Tabs = () => {
           )
         }}
       />
-      <Tab.Screen
-        name="Items"
-        component={ItemsScreen}
-        options={{
-          tabBarLabel: 'Mis Artículos',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
-        }}
-      />
-      {/* <Tab.Screen
-        name="Tickets"
-        component={Dashboard}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
-        }}
-      /> */}
-
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Mi Perfil',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
-        }}
-      />
+      {user && user.rol !== 'invitado' && (
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarLabel: 'Mi Perfil',
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            )
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 };

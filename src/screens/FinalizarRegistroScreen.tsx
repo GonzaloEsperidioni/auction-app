@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Background from '../components/Background';
 import Logo from '../components/Logo';
@@ -8,7 +8,7 @@ import TextInput from '../components/TextInput';
 import { theme } from '../core/theme';
 import { Navigation } from '../types';
 import { Paragraph, Dialog, Portal } from 'react-native-paper';
-
+import OTPTextInput from 'react-native-otp-textinput';
 import {
   emailValidator,
   passwordValidator,
@@ -19,10 +19,10 @@ type Props = {
   navigation: Navigation;
 };
 
-const RegisterScreen = ({ navigation }: Props) => {
+const FinalizarRegistroScreen = ({ navigation }: Props) => {
   const [name, setName] = useState({ value: '', error: '' });
   const [email, setEmail] = useState({ value: '', error: '' });
-  // const [password, setPassword] = useState({ value: '', error: '' });
+  const [password, setPassword] = useState({ value: '', error: '' });
 
   const [visible, setVisible] = React.useState(false);
 
@@ -36,38 +36,20 @@ const RegisterScreen = ({ navigation }: Props) => {
   const _onSignUpPressed = () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
-    // const passwordError = passwordValidator(password.value);
+    const passwordError = passwordValidator(password.value);
 
     if (emailError || nameError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
-      // setPassword({ ...password, error: passwordError });
+      setPassword({ ...password, error: passwordError });
       return;
     }
     showDialog();
   };
 
   return (
-    <Background>
-      <Header>Crear Cuenta</Header>
-
-      <TextInput
-        label="Nombre completo"
-        returnKeyType="next"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
-      />
-
-      <TextInput
-        label="Dni"
-        returnKeyType="next"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
-      />
+    <View style={styles.container}>
+      <Header>Finalizar Registro</Header>
 
       <TextInput
         label="Email"
@@ -82,14 +64,18 @@ const RegisterScreen = ({ navigation }: Props) => {
         keyboardType="email-address"
       />
 
-      <TextInput label="Telefono" returnKeyType="next" autoCapitalize="none" />
-      <TextInput label="Direccion" returnKeyType="next" autoCapitalize="none" />
       <TextInput
-        label="Codigo postal"
-        returnKeyType="next"
-        autoCapitalize="none"
+        label="Contraseña"
+        returnKeyType="done"
+        value={password.value}
+        onChangeText={(text) => setPassword({ value: text, error: '' })}
+        error={!!password.error}
+        errorText={password.error}
+        secureTextEntry
       />
-
+      <View>
+        <OTPTextInput />
+      </View>
       <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
         Registrarse
       </Button>
@@ -115,7 +101,7 @@ const RegisterScreen = ({ navigation }: Props) => {
           <Text style={styles.link}>Confirmar</Text>
         </TouchableOpacity>
       </View>
-    </Background>
+    </View>
   );
 };
 
@@ -133,7 +119,10 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: 'bold',
     color: theme.colors.primary
+  },
+  container: {
+    padding: 24
   }
 });
 
-export default memo(RegisterScreen);
+export default memo(FinalizarRegistroScreen);

@@ -34,7 +34,6 @@ const Dashboard = ({ route, navigation }: Props) => {
   return (
     <>
       <Header>Catalogo nro {itemId}</Header>
-      <Header>{name}</Header>
       <View style={{ flex: 1 }}>
         <ScrollView>
           <ItemCard

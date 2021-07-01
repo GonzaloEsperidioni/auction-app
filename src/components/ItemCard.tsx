@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import CountDown from './CountDown';
+import AuctionContext from '../context/AutionContext';
 const ItemCard = ({ onPress = () => {} }) => {
-  const mode = 'elevated';
+  const { user, isInvitado } = useContext(AuctionContext);
 
+  const mode = 'elevated';
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -19,7 +21,7 @@ const ItemCard = ({ onPress = () => {} }) => {
         ></Image>
         <View style={styles.aside}>
           <Text style={styles.desc}>Descripcion del producto</Text>
-          <Text style={styles.price}>$5454</Text>
+          {!isInvitado && <Text style={styles.price}>$5454</Text>}
           <Button onPress={onPress} style={styles.detail}>
             Detalle
           </Button>
