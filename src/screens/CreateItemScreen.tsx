@@ -43,7 +43,7 @@ const CreateItemScreen = ({ navigation }) => {
       fullDescription: description
     };
     const result = await client.post('/products', request);
-    navigation.back();
+    navigation.navigate('ItemScreen');
   };
   return (
     <>

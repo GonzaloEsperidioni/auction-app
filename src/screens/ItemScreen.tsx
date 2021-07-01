@@ -18,6 +18,7 @@ type Props = {
   route: any;
 };
 const RANGOS = {
+  invitado: [],
   comun: ['comun'],
   especial: ['comun', 'especial'],
   plata: ['comun', 'especial', 'plata'],

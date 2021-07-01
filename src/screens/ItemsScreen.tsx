@@ -9,13 +9,13 @@ import { useIsFocused } from '@react-navigation/core';
 const ItemsScreen = ({ navigation }) => {
   const [items, setItems] = useState([
     {
-      titulo: 'Item',
-      descripcion: 'desc',
+      titulo: 'Tetera',
+      descripcion: 'Tetera del siglo XX',
       estado: 'EN VERIFICACION'
     },
     {
-      titulo: 'Item',
-      descripcion: 'desc',
+      titulo: 'La mejor mesa del mundo',
+      descripcion: 'Mesa de roble',
       estado: 'VERIFICADO',
       precioBase: 1550
     }
@@ -24,8 +24,7 @@ const ItemsScreen = ({ navigation }) => {
 
   useEffect(() => {
     const search = async () => {
-      const { data } = await client.get('/products');
-      setItems(data);
+      //const { data } = await client.get('/products');
     };
     search();
   }, [isFocused]);

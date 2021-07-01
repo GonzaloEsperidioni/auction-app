@@ -15,7 +15,7 @@ const CatalogCard = ({
   items
 }) => {
   // Timer References
-  const vivo = true;
+  const vivo = id === 2;
   const tiempoRestante = '01:02';
   return (
     <View style={styles.card}>
