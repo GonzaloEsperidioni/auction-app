@@ -34,17 +34,7 @@ const FinalizarRegistroScreen = ({ navigation }: Props) => {
   };
 
   const _onSignUpPressed = () => {
-    const nameError = nameValidator(name.value);
-    const emailError = emailValidator(email.value);
-    const passwordError = passwordValidator(password.value);
-
-    if (emailError || nameError) {
-      setName({ ...name, error: nameError });
-      setEmail({ ...email, error: emailError });
-      setPassword({ ...password, error: passwordError });
-      return;
-    }
-    showDialog();
+    navigation.navigate('Home');
   };
 
   return (
@@ -79,28 +69,6 @@ const FinalizarRegistroScreen = ({ navigation }: Props) => {
       <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
         Registrarse
       </Button>
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Title>Te has registrado correctamente!</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>
-              Tus datos estan siendo validados, una vez finalizado este proceso,
-              recibiras un email para continuar con el completado de tu cuenta.
-            </Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>Cerrar</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-      <View style={styles.row}>
-        <Text style={styles.label}>Ya enviaste tus datos? </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('FinalizarRegistro')}
-        >
-          <Text style={styles.link}>Confirmar</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
