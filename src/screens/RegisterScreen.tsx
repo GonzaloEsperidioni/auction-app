@@ -54,7 +54,6 @@ const RegisterScreen = ({ navigation }: Props) => {
       <TextInput
         label="Nombre completo"
         returnKeyType="next"
-        value={name.value}
         onChangeText={(text) => setName({ value: text, error: '' })}
         error={!!name.error}
         errorText={name.error}
@@ -63,7 +62,6 @@ const RegisterScreen = ({ navigation }: Props) => {
       <TextInput
         label="Dni"
         returnKeyType="next"
-        value={name.value}
         onChangeText={(text) => setName({ value: text, error: '' })}
         error={!!name.error}
         errorText={name.error}
@@ -72,7 +70,6 @@ const RegisterScreen = ({ navigation }: Props) => {
       <TextInput
         label="Email"
         returnKeyType="next"
-        value={email.value}
         onChangeText={(text) => setEmail({ value: text, error: '' })}
         error={!!email.error}
         errorText={email.error}
