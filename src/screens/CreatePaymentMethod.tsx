@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   Alert,
@@ -10,8 +10,10 @@ import {
 import Header from '../components/Header';
 import LottieView from 'lottie-react-native';
 import CreditCardForm, { Button, FormModel } from 'rn-credit-card';
+import AutionContext from '../context/AutionContext';
 
-const CreatePaymentMethod = () => {
+const CreatePaymentMethod = ({ navigation }) => {
+  const { paymentMethods, setPaymentMethods } = useContext(AutionContext);
   const formMethods = useForm<FormModel>({
     // to trigger the validation on the blur event
     mode: 'onBlur',
@@ -25,7 +27,13 @@ const CreatePaymentMethod = () => {
   const { handleSubmit, formState } = formMethods;
 
   function onSubmit(model: FormModel) {
-    Alert.alert('Success: ' + JSON.stringify(model, null, 2));
+    setPaymentMethods([
+      ...paymentMethods,
+      { creditCardNumber: model.cardNumber, brand: 'visa' }
+    ]);
+    navigation.navigate({
+      name: 'PaymentMethodsScreen'
+    });
   }
   return (
     <>
