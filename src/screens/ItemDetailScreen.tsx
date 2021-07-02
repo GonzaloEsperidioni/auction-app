@@ -7,13 +7,14 @@ import Background from '../components/Background';
 import { theme } from '../core/theme';
 const ItemDetailScreen = ({ navigation, route }) => {
   const { item } = route.params;
+  console.log(item);
   return (
     <>
       <NavBar goBack={() => navigation.goBack()} title="Detalle Item"></NavBar>
       <Background>
         <Header>{item.titulo}</Header>
         <Paragraph>{item.descripcion}</Paragraph>
-        {item.precioBase && (
+        {item.precioBase !== '' && (
           <>
             <Paragraph>Precio base: {item.precioBase}</Paragraph>
             <Button mode="contained" color={theme.colors.secondary}>
@@ -24,7 +25,7 @@ const ItemDetailScreen = ({ navigation, route }) => {
             </Button>
           </>
         )}
-        {!item.precioBase && (
+        {item.precioBase === '' && (
           <Paragraph>Su item aun no ha sido validado.</Paragraph>
         )}
       </Background>

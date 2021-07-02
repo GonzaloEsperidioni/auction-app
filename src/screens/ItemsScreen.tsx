@@ -24,10 +24,11 @@ const ItemsScreen = ({ navigation }) => {
 
   useEffect(() => {
     const search = async () => {
-      //const { data } = await client.get('/products');
+      const { data } = await client.get('/products');
+      setItems(data);
     };
     search();
-  }, [isFocused]);
+  });
 
   return (
     <>

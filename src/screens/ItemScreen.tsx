@@ -66,6 +66,7 @@ const Dashboard = ({ route, navigation }: Props) => {
       setPujaMaxima(calcularMaximoDePuja(Number(data[data.length - 1].precio)));
     };
     search();
+    setInterval(search, 3000);
   }, [visible]);
   useEffect(() => {
     setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);

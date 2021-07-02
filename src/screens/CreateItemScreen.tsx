@@ -39,11 +39,14 @@ const CreateItemScreen = ({ navigation }) => {
   };
   const createItem = async () => {
     let request = {
-      description: title,
-      fullDescription: description
+      titulo: title,
+      descripcion: description,
+      estado: 'EN VERIFICACION',
+      precioBase: ''
     };
     const result = await client.post('/products', request);
-    navigation.navigate('ItemScreen');
+    console.log(result);
+    navigation.navigate('Items');
   };
   return (
     <>
