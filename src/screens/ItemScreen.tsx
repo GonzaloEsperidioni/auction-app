@@ -12,7 +12,7 @@ import {
 import TextInput from '../components/TextInput';
 import { Snackbar } from 'react-native-paper';
 import Countdown from '../components/CountDown';
-import { Headline } from 'react-native-paper';
+import { Headline, Portal, Paragraph, Dialog } from 'react-native-paper';
 import client from '../client/client';
 type Props = {
   navigation: Navigation;
@@ -56,7 +56,10 @@ const Dashboard = ({ route, navigation }: Props) => {
   );
   const [visible, setVisible] = React.useState(false);
   const [pujas, setPujas] = useState([]);
-
+  const [showFinish, setShowFinish] = useState(false);
+  const hideDialog = () => {
+    setShowFinish(false);
+  };
   useEffect(() => {
     const search = async () => {
       const { data } = await client.get('pujas');
@@ -91,6 +94,20 @@ const Dashboard = ({ route, navigation }: Props) => {
 
   return (
     <KeyboardAvoidingView>
+      <Portal>
+        <Dialog visible={showFinish} onDismiss={hideDialog}>
+          <Dialog.Title>Felicitaciones Ganaste!!!</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>
+              Has ganado la subasta, una vez se verifiquen los datos, seras
+              contactado. Gracias
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>Cerrar</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{nombre}</Text>
