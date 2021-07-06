@@ -34,7 +34,7 @@ const Dashboard = ({ route, navigation }: Props) => {
   const [text, setText] = React.useState('');
   const [valorActual, setValorActual] = useState(valorBase);
   const [pujaValida, setPujaValida] = useState(false);
-  const [time, setTime] = useState(60 * 5);
+  const [time, setTime] = useState(45 * 1);
   const [autorizado, setAutorizado] = useState(
     RANGOS[user.rol].includes(catalogo.categoria)
   );
