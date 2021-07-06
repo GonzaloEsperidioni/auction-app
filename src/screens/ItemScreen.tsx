@@ -1,62 +1,187 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext, useState, useEffect } from 'react';
 import Button from '../components/Button';
 import { Navigation } from '../types';
 import AutionContext from '../context/AutionContext';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native';
 import TextInput from '../components/TextInput';
-
+import { Snackbar } from 'react-native-paper';
+import Countdown from '../components/CountDown';
+import { Headline, Portal, Paragraph, Dialog } from 'react-native-paper';
+import client from '../client/client';
 type Props = {
   navigation: Navigation;
   route: any;
 };
-
+const RANGOS = {
+  invitado: [],
+  comun: ['comun'],
+  especial: ['comun', 'especial'],
+  plata: ['comun', 'especial', 'plata'],
+  oro: ['comun', 'especial', 'plata', 'oro'],
+  platino: ['comun', 'especial', 'plata', 'oro', 'platino']
+};
 const Dashboard = ({ route, navigation }: Props) => {
-  const { authenticated, setAuthenticated } = useContext(AutionContext);
+  const { item, catalogo } = route.params;
+  const { nombre, descripcion, imagen, valorBase } = item;
+  const { isInvitado, setAuthenticated, catalogos, user } =
+    useContext(AutionContext);
   const [text, setText] = React.useState('');
-  const [pujaMinima, setPujaMinima] = useState(100);
-  const { id, name } = route.params;
+  const [valorActual, setValorActual] = useState(valorBase);
+  const [pujaValida, setPujaValida] = useState(false);
+  const [time, setTime] = useState(45 * 1);
+  const [autorizado, setAutorizado] = useState(
+    RANGOS[user.rol].includes(catalogo.categoria)
+  );
+  const calcularMinimoDePuja = (base) => {
+    // menor al 1% valor Base en todas cat
+    // oro y platino
 
-  const itemsDeCatalogo = [1, 2, 3, 4, 5];
+    return Math.floor(base + base * 0.01);
+  };
+
+  const calcularMaximoDePuja = (pujaActual) => {
+    // menor al 1% valor Base en todas cat
+    // oro y platino
+    return Math.floor(pujaActual + pujaActual * 0.2);
+  };
+  const [pujaMinima, setPujaMinima] = useState(calcularMinimoDePuja(valorBase));
+  const [pujaMaxima, setPujaMaxima] = useState(
+    calcularMaximoDePuja(valorActual)
+  );
+  const [visible, setVisible] = React.useState(false);
+  const [pujas, setPujas] = useState([]);
+  const [showFinish, setShowFinish] = useState(false);
+  const hideDialog = () => {
+    setShowFinish(false);
+  };
+  useEffect(() => {
+    const search = async () => {
+      const { data } = await client.get('pujas');
+      setPujas(data);
+      setValorActual(data[data.length - 1].precio);
+      setPujaMinima(calcularMinimoDePuja(Number(data[data.length - 1].precio)));
+      setPujaMaxima(calcularMaximoDePuja(Number(data[data.length - 1].precio)));
+    };
+    search();
+    setInterval(search, 3000);
+  }, [visible]);
+  useEffect(() => {
+    setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
+  }, [text]);
+  const doPujar = async () => {
+    setPujaValida(Number(text) >= pujaMinima && Number(text) <= pujaMaxima);
+    if (Number(text) >= pujaMinima && Number(text) <= pujaMaxima) {
+      setVisible(true);
+      setTime(5 * 60);
+      const response = await client.post('/pujas', {
+        precio: text,
+        idCatalogo: catalogo.id,
+        mail: user.email
+      });
+      setTimeout(() => setVisible(false), 1000);
+      setValorActual(Number(text));
+      setPujaMinima(calcularMinimoDePuja(Number(text)));
+      setPujaMaxima(calcularMaximoDePuja(Number(text)));
+      setText('');
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Guitarra Les Paul</Text>
-      </View>
-      <View style={styles.content}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: 'https://www.mrcdinstrumentos.com.mx/shared/productos/11996/LPC-EBCH1.jpg'
-          }}
-        ></Image>
-        <View style={styles.aside}>
-          <Text style={styles.desc}>Descripcion del producto</Text>
-          <Text style={styles.descText}>
-            Guitarra bla bla Lorem ipsum dolor sit amet consectetur, adipisicing
-            elit. Ad distinctio qui corrupti deserunt minus, nemo recusandae
-            vero. Eos quos reprehenderit modi, in dolores quasi sunt totam
-            molestias, id odit tempore!
-          </Text>
-          <View style={styles.info}>
-            <Text style={styles.price}>12:23:02</Text>
-            <Text style={styles.price}>$5454</Text>
-          </View>
-          <View>
-            <TextInput
-              label="Precio"
-              value={text}
-              onChangeText={(text) => setText(text)}
-              error={Number(text) <= pujaMinima}
-              errorText={
-                Number(text) <= pujaMinima &&
-                `La puja minima tiene que ser de ${pujaMinima}`
-              }
-            />
-            <Button style={styles.detail}>Pujar</Button>
+    <KeyboardAvoidingView>
+      <Portal>
+        <Dialog visible={showFinish} onDismiss={hideDialog}>
+          <Dialog.Title>Felicitaciones Ganaste!!!</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>
+              Has ganado la subasta, una vez se verifiquen los datos, seras
+              contactado. Gracias
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>Cerrar</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{nombre}</Text>
+        </View>
+        <View style={styles.content}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: imagen
+            }}
+          ></Image>
+          <View style={styles.aside}>
+            <Text style={styles.desc}>Descripcion del producto</Text>
+            <Text style={styles.descText}>{descripcion}</Text>
+            {!isInvitado && autorizado && (
+              <>
+                {pujas && pujas[0] ? (
+                  <View>
+                    <Text>Ultima oferta: {pujas[pujas.length - 1].precio}</Text>
+                    <Text>
+                      Mail de ofertante: {pujas[pujas.length - 1].mail}
+                    </Text>
+                  </View>
+                ) : (
+                  <View>
+                    <Text style={{ marginTop: 10, fontSize: 20 }}>
+                      No hay ofertas, se el primero en pujar!
+                    </Text>
+                  </View>
+                )}
+                <View style={styles.info}>
+                  {!visible && (
+                    <Countdown
+                      timestamp={time}
+                      callback={() => console.log('GANASTE')}
+                    />
+                  )}
+                  <Text style={styles.price}>$ {valorActual}</Text>
+                </View>
+                <View>
+                  <TextInput
+                    label="Precio"
+                    value={text}
+                    onChangeText={(text) => setText(text)}
+                    error={text !== '' && Number(text) < pujaMinima}
+                    errorText={
+                      text !== '' &&
+                      Number(text) < pujaMinima &&
+                      `La puja minima tiene que ser de ${pujaMinima}`
+                    }
+                  />
+                  <Button
+                    disabled={!pujaValida}
+                    onPress={doPujar}
+                    style={{
+                      ...styles.detail,
+                      backgroundColor: pujaValida ? 'blue' : 'gray'
+                    }}
+                  >
+                    Pujar
+                  </Button>
+                </View>
+              </>
+            )}
+            {!autorizado && (
+              <Headline style={styles.cat}>
+                NO TIENES LA CATEGORIA NECESARIA PARA PARTICIPAR EN ESTA SUBASTA
+              </Headline>
+            )}
           </View>
         </View>
       </View>
-    </View>
+      <Snackbar visible={visible}>Su puja ingreso correctamente!.</Snackbar>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
@@ -64,6 +189,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     padding: 24
+  },
+  cat: {
+    marginTop: 20
   },
   header: {
     width: '100%',

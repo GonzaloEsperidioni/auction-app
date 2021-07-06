@@ -3,29 +3,26 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { ScrollView } from 'react-native';
 import { List } from 'react-native-paper';
-import ItemCard from '../components/ItemCard';
-
-const itemsDeCatalogo = [
-  { creditCardNumber: '4242424242424242', brand: 'visa' },
-  { creditCardNumber: '4242424242424242', brand: 'visa' },
-  { creditCardNumber: '5555555555555555', brand: 'mastercard' }
-];
+import AutionContext from '../context/AutionContext';
 
 const PaymentMethodsScreen = ({ navigation }) => {
+  const { paymentMethods } = useContext(AutionContext);
+  console.log(paymentMethods);
+
   return (
     <>
       <Header>Medios de Pago</Header>
       <ScrollView>
         <List.Section>
-          {itemsDeCatalogo.map((item) => {
+          {paymentMethods.map((paymentMethod) => {
             return (
               <List.Item
-                title={item.creditCardNumber}
+                title={paymentMethod.creditCardNumber}
                 onPress={() => {
-                  navigation.push('ItemScreen', item);
+                  navigation.push('ItemScreen', paymentMethod);
                 }}
                 left={() =>
-                  item.brand === 'visa' ? (
+                  paymentMethod.brand === 'visa' ? (
                     <List.Icon icon={require(`../assets/visa.png`)} />
                   ) : (
                     <List.Icon icon={require(`../assets/mastercard.png`)} />

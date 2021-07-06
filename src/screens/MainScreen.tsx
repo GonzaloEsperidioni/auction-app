@@ -5,41 +5,20 @@ import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Searchbar } from 'react-native-paper';
 import ScreenWrapper from '../components/ScreenWrapper';
 import NavBar from '../components/NavBar';
+import AutionContext from '../context/AutionContext';
 import CatalogCard from '../components/CatalogCard';
 type Props = {
   navigation: Navigation;
 };
 
-const items = [
-  {
-    name: 'Arte',
-    id: 1
-  },
-  {
-    name: 'Vajillas inglesas',
-    id: 2
-  },
-  {
-    name: 'Muebles premium',
-    id: 3
-  },
-  {
-    name: 'Arte',
-    id: 4
-  },
-  {
-    name: 'Vajillas inglesas',
-    id: 5
-  },
-  {
-    name: 'Muebles premium',
-    id: 6
-  }
-];
-
 const Dashboard = ({ navigation }: Props) => {
+  const { authenticated, setAuthenticated, catalogos, user } =
+    useContext(AutionContext);
+
   const [hint, setHint] = useState('');
-  const filteredItems = items.filter((i) => !i.name.indexOf(hint));
+  const filteredItems = catalogos.filter((cat) =>
+    cat.items.some((i) => i.nombre.toLowerCase().includes(hint))
+  );
   return (
     <>
       <Searchbar
@@ -52,10 +31,10 @@ const Dashboard = ({ navigation }: Props) => {
           filteredItems.map((i) => (
             <CatalogCard
               key={i.id}
+              {...i}
               onPress={() =>
                 navigation.push('CatalogScreen', {
-                  itemId: i.id,
-                  name: i.name
+                  catalogId: i.id
                 })
               }
             ></CatalogCard>

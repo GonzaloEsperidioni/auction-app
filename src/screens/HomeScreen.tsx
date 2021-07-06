@@ -18,8 +18,15 @@ type Props = {
 const LoginScreen = ({ navigation }: Props) => {
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
-  const { setAuthenticated } = useContext(AutionContext);
+  const { setAuthenticated, setUser } = useContext(AutionContext);
 
+  const getRol = (email) => {
+    if (email.includes('platino')) return 'platino';
+    if (email.includes('oro')) return 'oro';
+    if (email.includes('plata')) return 'plata';
+    if (email.includes('especial')) return 'especial';
+    return 'comun';
+  };
   const _onLoginPressed = () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -29,6 +36,14 @@ const LoginScreen = ({ navigation }: Props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
+
+    setUser({
+      name: 'Gonzalo Iglesias',
+      phoneNumber: '1138252190',
+      address: 'Gregorio de Laferrere 1115',
+      email: email.value,
+      rol: getRol(email.value)
+    });
     setAuthenticated(true);
   };
 
@@ -58,7 +73,9 @@ const LoginScreen = ({ navigation }: Props) => {
         secureTextEntry
       />
 
-      <Login _onLoginPressed={_onLoginPressed} />
+      <Button mode="contained" onPress={_onLoginPressed}>
+        INGRESAR
+      </Button>
 
       <View style={styles.forgotPassword}>
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
@@ -77,7 +94,12 @@ const LoginScreen = ({ navigation }: Props) => {
       <Button
         mode="contained"
         color={theme.colors.secondary}
-        onPress={() => setAuthenticated(true)}
+        onPress={() => {
+          setUser({
+            rol: 'invitado'
+          });
+          setAuthenticated(true);
+        }}
       >
         Ingresar como invitado
       </Button>

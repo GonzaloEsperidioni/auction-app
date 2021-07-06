@@ -7,3 +7,5 @@ export { default as MainScreen } from './MainScreen';
 export { default as PaymentMethodsScreen } from './PaymentMethodsScreen';
 export { default as CreatePaymentMethod } from './CreatePaymentMethod';
 export { default as UpdateProfile } from './UpdateProfile';
+export { default as FinalizarRegistroScreen } from './FinalizarRegistroScreen';
+export { default as PinRecuperarContrasena } from './PinRecuperarContrasena';

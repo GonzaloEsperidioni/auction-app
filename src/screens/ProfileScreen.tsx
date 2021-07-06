@@ -10,21 +10,10 @@ type Props = {
   route: any;
 };
 
-const profileDataDefault = {
-  name: 'Gonzalo Iglesias',
-  category: 'Gold',
-  phoneNumber: '1138252190',
-  address: 'Gregorio de Laferrere 1115'
-};
-
 const Dashboard = ({ navigation, route }: Props) => {
-  const { authenticated, setAuthenticated } = useContext(AutionContext);
-  const [profileData, setProfileData] = useState(profileDataDefault);
-  useEffect(() => {
-    if (route.params?.formProfileData) {
-      setProfileData(route.params.formProfileData);
-    }
-  }, [route.params]);
+  const { authenticated, setAuthenticated, user } = useContext(AutionContext);
+
+  const profileData = user;
 
   return (
     <>
@@ -34,7 +23,7 @@ const Dashboard = ({ navigation, route }: Props) => {
             <Avatar.Text size={124} label="JP" />
             <View style={styles.headerText}>
               <Title style={styles.title}>{profileData.name}</Title>
-              <Text style={styles.text}>{profileData.category}</Text>
+              <Text style={styles.text}>{profileData.rol}</Text>
               <Text style={styles.text}>{profileData.phoneNumber}</Text>
               <Text style={styles.text}>{profileData.address}</Text>
             </View>
@@ -52,7 +41,7 @@ const Dashboard = ({ navigation, route }: Props) => {
         <Button
           mode="outlined"
           onPress={() => {
-            navigation.push('UpdateProfile', { profileData, setProfileData });
+            navigation.push('UpdateProfile', { profileData });
           }}
         >
           Editar Perfil

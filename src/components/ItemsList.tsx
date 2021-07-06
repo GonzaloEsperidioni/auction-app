@@ -6,15 +6,27 @@ const ItemsList = ({ items, navigation }) => (
     {items
       ? items.map((item, i) => (
           <List.Item
-            key={i}
-            title={item.name}
-            description={item.description}
             style={{
-              backgroundColor: 'white',
               marginBottom: 1,
-              borderColor: 'black'
+              borderColor: 'black',
+              backgroundColor: item.estado === 'VERIFICADO' ? 'green' : 'white'
             }}
-            onPress={() => navigation.navigate('ItemDetail')}
+            titleStyle={{
+              fontSize: 24,
+              color: item.estado === 'VERIFICADO' ? 'white' : 'black'
+            }}
+            descriptionStyle={{
+              color: item.estado === 'VERIFICADO' ? 'white' : 'black'
+            }}
+            key={i}
+            title={item.titulo}
+            description={item.estado}
+            right={(props) =>
+              item.estado === 'VERIFICADO' && (
+                <List.Icon {...props} color={'white'} icon="check" />
+              )
+            }
+            onPress={() => navigation.navigate('ItemDetail', { item })}
           />
         ))
       : null}

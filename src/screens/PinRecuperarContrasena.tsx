@@ -8,54 +8,32 @@ import TextInput from '../components/TextInput';
 import { theme } from '../core/theme';
 import Button from '../components/Button';
 import { Navigation } from '../types';
+import OTPTextInput from 'react-native-otp-textinput';
 
 type Props = {
   navigation: Navigation;
 };
 
-const ForgotPasswordScreen = ({ navigation }: Props) => {
+const PinRecuperarContrasena = ({ navigation }: Props) => {
   const [email, setEmail] = useState({ value: '', error: '' });
 
   const _onSendPressed = () => {
-    const emailError = emailValidator(email.value);
-
-    if (emailError) {
-      setEmail({ ...email, error: emailError });
-      return;
-    }
-
-    navigation.navigate('PinRecuperar');
+    navigation.navigate('Home');
   };
 
   return (
     <Background>
       <Logo />
 
-      <Header>Restaurar contraseña</Header>
+      <Header>Recupera contrasena</Header>
+      <Text>Ingrese el pin que recibio en su email</Text>
+      <OTPTextInput />
 
-      <TextInput
-        label="E-mail"
-        returnKeyType="done"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
-        error={!!email.error}
-        errorText={email.error}
-        autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-      />
+      <TextInput label="Nueva contrasena" returnKeyType="done" />
 
       <Button mode="contained" onPress={_onSendPressed} style={styles.button}>
-        Enviar instrucciones de reseteo
+        Ingresar
       </Button>
-
-      <TouchableOpacity
-        style={styles.back}
-        onPress={() => navigation.navigate('Login')}
-      >
-        <Text style={styles.label}>← Volver al login</Text>
-      </TouchableOpacity>
     </Background>
   );
 };
@@ -74,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default memo(ForgotPasswordScreen);
+export default memo(PinRecuperarContrasena);

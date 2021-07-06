@@ -7,7 +7,19 @@ import Button from '../components/Button';
 import { useIsFocused } from '@react-navigation/core';
 
 const ItemsScreen = ({ navigation }) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    {
+      titulo: 'Tetera',
+      descripcion: 'Tetera del siglo XX',
+      estado: 'EN VERIFICACION'
+    },
+    {
+      titulo: 'La mejor mesa del mundo',
+      descripcion: 'Mesa de roble',
+      estado: 'VERIFICADO',
+      precioBase: 1550
+    }
+  ]);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -16,7 +28,7 @@ const ItemsScreen = ({ navigation }) => {
       setItems(data);
     };
     search();
-  }, [isFocused]);
+  });
 
   return (
     <>
